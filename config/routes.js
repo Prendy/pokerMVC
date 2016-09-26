@@ -8,10 +8,8 @@ var cardsController = require('../controllers/cards');
 router.route('/cards')
 	.get(cardsController.index);
 
-router.route('/shuffle')
-	.get(cardsController.shuffle);
-
-
+router.route('/deal')
+	.get(cardsController.deal);
 
 module.exports = router;
 
