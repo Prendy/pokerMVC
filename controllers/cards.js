@@ -12,8 +12,8 @@ function cardsIndex(req, res){
 function cardsShuffle(req, res){
 	Card.find({}, function(err, cards){
 		if (err) console.log(err);
-		var shuffledCards = shuffleArray(cards);
-		res.status(200).json(shuffledCards);
+		// var shuffledCards = shuffleArray(cards);
+		res.status(200).json(shuffleArray(cards));
 	});
 
 };
