@@ -52,16 +52,16 @@ function dealCards(req, res) {
 	});
 }
 
-// function dealCard(thePlayer) {
+function dealCard(thePlayer) {
 
-// 	var card = deck[0];
+	var card = deck[0];
 
-// 	thePlayer.push(card);
+	thePlayer.push(card);
 
-//     deck = deck.slice(1); 
-// 	console.log("The card dealt was " + card);
-// 	return card;
-// }
+    deck = deck.slice(1); 
+	console.log("The card dealt was " + card);
+	return card;
+}
 
 
 // function calculateFirstRoundScore(playersCards, flop, roundNumber){
