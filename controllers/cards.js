@@ -62,6 +62,7 @@ function dealCard(thePlayer) {
 	console.log("The card dealt was " + card);
 	return card;
 }
+//test
 
 
 // function calculateFirstRoundScore(playersCards, flop, roundNumber){
