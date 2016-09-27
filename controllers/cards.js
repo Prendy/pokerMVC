@@ -43,7 +43,8 @@ function dealCards(req, res) {
 		var players = { 
 			"user" : user,
 			"computer" : computer,
-			"flop" : flop
+			"flop" : flop,
+			"remainingDeck" : deck
 		}
 
 		console.log(deck.length);
@@ -61,6 +62,24 @@ function dealCard(thePlayer) {
 	console.log("The card dealt was " + card);
 	return card;
 }
+
+
+function winLogic(req, res){
+
+
+};
+
+function Check(req, res){
+
+};
+
+function winner(){
+
+
+};
+
+
+
 
 module.exports = {
 	index : cardsIndex,
