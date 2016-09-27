@@ -67,8 +67,6 @@ function dealCard(thePlayer) {
 
 
 
-
-
 module.exports = {
 	index : cardsIndex,
 	// shuffle : cardsShuffle,
