@@ -65,7 +65,27 @@ function evaluateHand(sevenCards){
 
 };
 
-function winner(){
+function highCard(hand) {
+	var i = this.length;
+    while (i<this.length; i++) {
+    	switch(hand[i].number) {
+		    case 11:
+		        console.log(hand[i].number)
+		        break;
+		    case 12:
+		        console.log(hand[i].number)
+		        break;
+		    case 13:
+		        console.log(hand[i].number)
+		        break;
+		    case 14:
+		        console.log(hand[i].number)
+		        break;
+		    
+		    default:
+		    	console.log("Not a high card")
+		}
 
+    }
 
-};
+}

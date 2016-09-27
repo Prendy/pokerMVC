@@ -13,7 +13,9 @@ router.route('/deal')
 	.get(cardsController.deal);
 
 router.route('/game')
-	.get(gamesController.index);
+	.get(gamesController.index)
+	.post(gamesController.index);
+
 module.exports = router;
 
 // Index

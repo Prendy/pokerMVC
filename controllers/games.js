@@ -9,23 +9,24 @@ function initGame(req, res) {
 		Round: 1,
 		Pot: 0
 	};
-
+	var name = req.body.name;
 	
 	Game.create(game, function(err, result) {
+		console.log(name);
 		if (err) console.log(err);
 		addPlayer(function(game) {
-			console.log(game);
 			return res.status(200).json(game);
-		});
+		}, name);
 	})
 
 }
 
-function addPlayer(callback) {
+function addPlayer(callback, name) {
 
 	Game.findOne({}, function(err, game) {
+		console.log(name);
 		var newPlayer = new Player({
-			name: "Farrakh",
+			name: name,
 			hand: [],
 			round1Choice: "",
 			round2Choice: "",

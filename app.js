@@ -18,7 +18,7 @@ var options = {
 mongoose.connect('ds041586.mlab.com:41586/skybetpoker', options), function(){
 	console.log("Database connected");
 }
-// app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
