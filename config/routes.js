@@ -13,7 +13,6 @@ router.route('/deal')
 	.get(cardsController.deal);
 
 router.route('/game')
-	.get(gamesController.index)
 	.post(gamesController.index);
 
 router.route('/end')

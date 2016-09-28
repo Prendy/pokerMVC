@@ -54,21 +54,18 @@ function dealCards(req, res) {
 			userId = game.players[0]._id;
 			computerId = game.players[1]._id;
 
-			Player.findByIdAndUpdate(userId, {$push: { hand: {$each : usersCards}}}, {upsert: true}, function(err, user) {
-
-				Player.findByIdAndUpdate(computerId, {$push: { hand: {$each : computersCards}}}, {upsert: true}, function(err, computer) {
-
-					game.update({$push: {
-						players: {$each: [user, computer]}
-					}}, {new: true}, function(err, updatedGame) {
-						console.log("getting here");
-						return res.status(200).json(game);
+			Player.findByIdAndUpdate(userId, {$push: { hand: {$each : usersCards}}}, null, function(err, user) {
+				Player.findByIdAndUpdate(computerId, {$push: { hand: {$each : computersCards}}}, null, function(err, computer) {
+					game.update({ $addTo : { players: { $each: [user, computer] }}}, {new: true}, function(err, response) {
+						return res.status(200).json({"users" : usersCards, "computer": computersCards});
 					})
 				})
 			})
 		});
 
-
+// {$push: {
+// 						//players: {$each: [user, computer]}
+// 					}}
 		// an object of the two players to return as JSON on screen
 		var players = { 
 			"users" : usersCards,
@@ -95,11 +92,32 @@ function dealCard(thePlayer) {
 
 function endGame(req, res){
 
+<<<<<<< HEAD
 	// findByIdAndRemove({ _id: })
 
 	Game.remove({});
 	Player.remove({});
 	res.status(200).json({ message: "Game Over" });
+=======
+	// Game.findOne({}, function(err, game){
+	// 	game.remove();
+	// });
+
+	Game.remove({}, function(err) {
+		if (err) console.log(err);
+		Player.remove({}, function(err) {
+			if (err) console.log(err);
+			console.log("all gone");
+			res.status(200).json({message: "Game Over"})
+		})
+	})
+	
+	// Player.find({}, function(err, players){
+	// 	players.forEach(function() {
+
+	// 	}
+	// });
+>>>>>>> dev
 
 }
 
@@ -110,5 +128,9 @@ module.exports = {
 	index : cardsIndex,
 	// shuffle : cardsShuffle,
 	deal : dealCards,
+<<<<<<< HEAD
 	end: endGame
+=======
+	end : endGame
+>>>>>>> dev
 };
