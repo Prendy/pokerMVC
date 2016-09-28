@@ -10,23 +10,25 @@ function initGame(req, res) {
 		pot: 0
 	};
 	
-	var isComputer = req.body.isComputer;
-	var name = req.body.player;
+	// var isComputer = req.body.isComputer;
+	// var name = req.body.player;
 
-	var isComputer1 = req.body.isComputer1;
-	var name1 = req.body.player1;
+	// var isComputer1 = req.body.isComputer1;
+	// var name1 = req.body.player1;
 
 	// var player = req.body.player2;
 	// var player = req.body.player3;
 	// var player = req.body.player4;
+	console.log(req.body[1].name1);
+
 	var player1 = {
-		name: "ollie",
-		isComputer: false
+		name: req.body[0].name,
+		isComputer: req.body[0].isComputer
 	};
 
 	var player2 = {
-		name: "Jack",
-		isComputer: true
+		name: req.body[1].name1,
+		isComputer: req.body[1].isComputer1
 	}
 
 	Game.create(game, function(err, newGame) {
