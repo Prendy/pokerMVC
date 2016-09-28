@@ -57,7 +57,7 @@ function dealCards(req, res) {
 			Player.findByIdAndUpdate(userId, {$push: { hand: {$each : usersCards}}}, null, function(err, user) {
 				Player.findByIdAndUpdate(computerId, {$push: { hand: {$each : computersCards}}}, null, function(err, computer) {
 					game.update({ $addTo : { players: { $each: [user, computer] }}}, {new: true}, function(err, response) {
-						return res.status(200).json({"users" : usersCards, "computer": computersCards});
+						return res.status(200).json({"users" : usersCards, "computer": computersCards, "flop" : flop});
 					})
 				})
 			})
