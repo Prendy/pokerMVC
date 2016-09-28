@@ -1,7 +1,7 @@
 var Player = require('../models/player');
 var Game = require('../models/game');
 
-function addPlayer() {
+function addPlayer(req,res) {
 	var player = {
 		name: "Farrakh",
 		hand: [],

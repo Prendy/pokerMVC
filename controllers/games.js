@@ -19,16 +19,18 @@ function initGame(req, res) {
 	// var player = req.body.player2;
 	// var player = req.body.player3;
 	// var player = req.body.player4;
-	console.log(req.body[1].name1);
+	console.log(req.body.name1);
+
+	//DELETED [0]
 
 	var player1 = {
-		name: req.body[0].name,
-		isComputer: req.body[0].isComputer
+		name: req.body.name,
+		isComputer: req.body.isComputer
 	};
 
 	var player2 = {
-		name: req.body[1].name1,
-		isComputer: req.body[1].isComputer1
+		name: req.body.name1,
+		isComputer: req.body.isComputer1
 	}
 
 	Game.create(game, function(err, newGame) {

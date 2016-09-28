@@ -4,6 +4,9 @@ var Player = require('../models/player');
 var Game = require('../models/game');
 var deck = [];
 var numberOfPlayers = 2;
+var gameId = "";
+var userId = "";
+var computerId = "";
 
 function cardsIndex(req, res){
 	Card.find({}, function(err, cards){
@@ -47,8 +50,9 @@ function dealCards(req, res) {
   // 			{ Suit: 'Banter', Number: 11 }
   // 			];
 		Game.findOne({}, function(err, game){
-			var userId = game.players[0]._id;
-			var computerId = game.players[1]._id;
+			gameId = game._id;
+			userId = game.players[0]._id;
+			computerId = game.players[1]._id;
 
 			Player.findByIdAndUpdate(userId, {$push: { hand: {$each : usersCards}}}, {upsert: true}, function(err, user) {
 
@@ -58,7 +62,7 @@ function dealCards(req, res) {
 						players: {$each: [user, computer]}
 					}}, {new: true}, function(err, updatedGame) {
 						console.log("getting here");
-						return res.status(200).json(updatedGame);
+						return res.status(200).json(game);
 					})
 				})
 			})
@@ -89,6 +93,15 @@ function dealCard(thePlayer) {
 	return card;
 }
 
+function endGame(req, res){
+
+	// findByIdAndRemove({ _id: })
+
+	Game.remove({});
+	Player.remove({});
+	res.status(200).json({ message: "Game Over" });
+
+}
 
 
 
@@ -96,5 +109,6 @@ function dealCard(thePlayer) {
 module.exports = {
 	index : cardsIndex,
 	// shuffle : cardsShuffle,
-	deal : dealCards
+	deal : dealCards,
+	end: endGame
 };

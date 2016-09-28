@@ -16,6 +16,9 @@ router.route('/game')
 	.get(gamesController.index)
 	.post(gamesController.index);
 
+router.route('/end')
+	.get(cardsController.end);	
+
 module.exports = router;
 
 // Index
