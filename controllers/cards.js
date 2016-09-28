@@ -92,16 +92,8 @@ function dealCard(thePlayer) {
 
 function endGame(req, res){
 
-<<<<<<< HEAD
 	// findByIdAndRemove({ _id: })
 
-	Game.remove({});
-	Player.remove({});
-	res.status(200).json({ message: "Game Over" });
-=======
-	// Game.findOne({}, function(err, game){
-	// 	game.remove();
-	// });
 
 	Game.remove({}, function(err) {
 		if (err) console.log(err);
@@ -117,7 +109,7 @@ function endGame(req, res){
 
 	// 	}
 	// });
->>>>>>> dev
+
 
 }
 
@@ -128,9 +120,6 @@ module.exports = {
 	index : cardsIndex,
 	// shuffle : cardsShuffle,
 	deal : dealCards,
-<<<<<<< HEAD
 	end: endGame
-=======
-	end : endGame
->>>>>>> dev
+
 };
