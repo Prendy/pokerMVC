@@ -4,24 +4,67 @@ var Player = require('../models/player');
 
 function initGame(req, res) {	
 	var game = {
-		Players: [],
-		Flop: [],
-		Round: 1,
-		Pot: 0
+		players: [],
+		flop: [],
+		round: 1,
+		pot: 0
 	};
-	var name = req.body.name;
 	
-	Game.create(game, function(err, result) {
-		console.log(name);
+	var isComputer = req.body.isComputer;
+	var name = req.body.player;
+
+	var isComputer1 = req.body.isComputer1;
+	var name1 = req.body.player1;
+
+	// var player = req.body.player2;
+	// var player = req.body.player3;
+	// var player = req.body.player4;
+	var player1 = {
+		name: "ollie",
+		isComputer: false
+	};
+
+	var player2 = {
+		name: "Jack",
+		isComputer: true
+	}
+
+	Game.create(game, function(err, newGame) {
 		if (err) console.log(err);
-		addPlayer(function(game) {
-			return res.status(200).json(game);
-		}, name);
+		Player.create(player1, function(err, newPlayer1) {
+			if (err) console.log(err);
+			newGame.players.push(newPlayer1);
+			Player.create(player2, function(err, newPlayer2) {
+				if (err) console.log(err);
+				newGame.players.push(newPlayer2);
+				newGame.save(function(err, savedGame) {
+					if (err) console.log(err);
+					return res.status(200).json(savedGame);
+				})
+			})
+		})
 	})
+	
+	// Game.create(game, function(err, result) {
+	// 	console.log(name);
+	// 	if (err) console.log(err);
+
+	// 	// adds the human player
+
+	// 	//adds the computer player
+	// 	addPlayer(function(game) {
+	// 		addPlayer(function(game) {
+	// 			(function(){
+	// 				return res.status(200).json(game);
+	// 			})();
+	// 		}, name, isComputer);
+	// 	}, name1, isComputer1);
+
+	// })
 
 }
 
-function addPlayer(callback, name) {
+function addPlayer(callback, name, isComputer) {
 
 	Game.findOne({}, function(err, game) {
 		console.log(name);
@@ -31,7 +74,8 @@ function addPlayer(callback, name) {
 			round1Choice: "",
 			round2Choice: "",
 			round3Choice: "",
-			balance: 0
+			balance: 0,
+			isComputer: isComputer
 		});
 
 		newPlayer.save(function(err, player) {

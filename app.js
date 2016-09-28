@@ -21,7 +21,7 @@ mongoose.connect('ds041586.mlab.com:41586/skybetpoker', options), function(){
 }
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(cors);
+app.use(cors());
 
 
 app.use(bodyParser.json());

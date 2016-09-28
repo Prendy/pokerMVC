@@ -7,7 +7,8 @@ var PlayerSchema = new mongoose.Schema({
 	round1Choice: {type: String}, // round 1 choice
 	round2Choice: {type: String}, // round 2 choice
 	round3Choice: {type: String}, // round 3 choice
-	balance: {type: Number} // Players remaining chips
+	balance: {type: Number}, // Players remaining chips
+	isComputer: {type: Boolean}
 
 });
 
