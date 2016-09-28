@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var cors = requires('cors');
 
 var app = express();
 var router= require('./config/routes');
@@ -18,9 +19,9 @@ var options = {
 mongoose.connect('ds041586.mlab.com:41586/skybetpoker', options), function(){
 	console.log("Database connected");
 }
-// app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: false }));
 
-
+app.use(cors);
 
 
 app.use(bodyParser.json());

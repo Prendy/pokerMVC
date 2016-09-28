@@ -19,6 +19,7 @@ function dealCards(req, res) {
 		// empty user and computer arrays - this will hold their cards
 		var user = [];
 		var computer = [];
+		var flop = [];
 
 		// deal the human (user) and computer 2 cards
 		dealCard(user);
@@ -26,10 +27,24 @@ function dealCards(req, res) {
 		dealCard(user);
 		dealCard(computer);
 
+		// deals the first three cards to the flop
+		dealCard(flop);
+		dealCard(flop);
+		dealCard(flop);
+
+		// deals the fourth card in the flop
+		dealCard(flop);
+
+		// deals the fifth card in the flop
+		dealCard(flop);
+
+
 		// an object of the two players to return as JSON on screen
 		var players = { 
 			"user" : user,
-			"computer" : computer
+			"computer" : computer,
+			"flop" : flop,
+			"remainingDeck" : deck
 		}
 
 		console.log(deck.length);
@@ -47,6 +62,10 @@ function dealCard(thePlayer) {
 	console.log("The card dealt was " + card);
 	return card;
 }
+
+
+
+
 
 module.exports = {
 	index : cardsIndex,
