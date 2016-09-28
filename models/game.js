@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Player = require('../models/player')
 
+
 var GameSchema = new mongoose.Schema({
 	players: [Player.schema], //array of players
 	flop: {type: Array}, // array of cards
