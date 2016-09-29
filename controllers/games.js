@@ -97,7 +97,7 @@ function returnWinner(req, res) {
 }
 
 function conputerDecision(req, res) {
-	
+
 }
 
 function winner() {
@@ -113,5 +113,6 @@ function evaluateHand(hand, flop) {
 
 module.exports = {
 	index : initGame,
-	returnWinner : returnWinner
+	returnWinner : returnWinner,
+	computerDecision : computerDecision
 };
