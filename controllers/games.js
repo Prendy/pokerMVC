@@ -96,14 +96,15 @@ function returnWinner(req, res) {
 
 }
 
-function conputerDecision(req, res) {
+function computerDecision(req, res) {
 
 }
 
-function winner() {
-	var hand1Score = evaluateHand();
+function winner(hand1, hand2, flop) {
+	var hand1Score = evaluateHand(hand1, flop);
+	var hand2Score = evaluateHand(hand2, flop);
 
-	
+
 }
 
 
@@ -111,6 +112,31 @@ function evaluateHand(hand, flop) {
 
 
 }
+
+// function highCard(hand) {
+// 	var i = this.length;
+//     while (i<this.length; i++) {
+//     	switch(hand[i].number) {
+// 		    case 11:
+// 		        console.log(hand[i].number);
+// 		        break;
+// 		    case 12:
+// 		        console.log(hand[i].number);
+// 		        break;
+// 		    case 13:
+// 		        console.log(hand[i].number);
+// 		        break;
+// 		    case 14:
+// 		        console.log(hand[i].number);
+// 		        break;
+//
+// 		    default:
+// 		    	console.log("Not a high card");
+// 		}
+//
+//     }
+//
+// }
 
 
 
