@@ -49,22 +49,22 @@ function initGame(req, res) {
 		})
 	})
 
-	// Game.create(game, function(err, result) {
-	// 	console.log(name);
-	// 	if (err) console.log(err);
+	Game.create(game, function(err, result) {
+		console.log(name);
+		if (err) console.log(err);
 
-	// 	// adds the human player
+		// adds the human player
 
-	// 	//adds the computer player
-	// 	addPlayer(function(game) {
-	// 		addPlayer(function(game) {
-	// 			(function(){
-	// 				return res.status(200).json(game);
-	// 			})();
-	// 		}, name, isComputer);
-	// 	}, name1, isComputer1);
+		//adds the computer player
+		addPlayer(function(game) {
+			addPlayer(function(game) {
+				(function(){
+					return res.status(200).json(game);
+				})();
+			}, name, isComputer);
+		}, name1, isComputer1);
 
-	// })
+	})
 
 }
 
@@ -92,27 +92,30 @@ function addPlayer(callback, name, isComputer) {
 	});
 }
 
-// function returnWinner(req, res) {
-//
-// }
-//
-// function conputerDecision(req, res) {
-//
-// }
-//
-// function winner() {
-// 	var hand1Score = evaluateHand();
-// }
-//
-//
-// function evaluateHand(hand, flop) {
-//
-// }
+function returnWinner(req, res) {
+
+}
+
+function conputerDecision(req, res) {
+
+}
+
+function winner() {
+	var hand1Score = evaluateHand();
+
+	
+}
+
+
+function evaluateHand(hand, flop) {
+
+
+}
 
 
 
 module.exports = {
 	index : initGame,
-	// returnWinner : returnWinner,
-	// computerDecision : computerDecision
+	returnWinner : returnWinner,
+	computerDecision : computerDecision
 };
