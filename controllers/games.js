@@ -24,13 +24,13 @@ function initGame(req, res) {
 	//DELETED [0]
 
 	var player1 = {
-		name: req.body.name,
-		isComputer: req.body.isComputer
+		name: req.body[0].name,
+		isComputer: req.body[0].isComputer
 	};
 
 	var player2 = {
-		name: req.body.name1,
-		isComputer: req.body.isComputer1
+		name: req.body[1].name1,
+		isComputer: req.body[1].isComputer1
 	}
 
 	Game.create(game, function(err, newGame) {
@@ -89,7 +89,20 @@ function addPlayer(callback, name, isComputer) {
 				return callback(newGame);
 			});
 		});
-	})
+	});
+}
+
+function returnWinner(req, res) {
+
+}
+
+function winner() {
+	var hand1Score = evaluateHand();
+}
+
+
+function evaluateHand(hand, flop) {
+
 }
 
 

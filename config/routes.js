@@ -16,7 +16,10 @@ router.route('/game')
 	.post(gamesController.index);
 
 router.route('/end')
-	.get(cardsController.end);	
+	.get(cardsController.end);
+
+router.route('/evalHand')
+	.get(gamesController.evaluateHand);
 
 module.exports = router;
 
