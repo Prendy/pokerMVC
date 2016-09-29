@@ -24,13 +24,13 @@ function initGame(req, res) {
 	//DELETED [0]
 
 	var player1 = {
-		name: req.body.name,
-		isComputer: req.body.isComputer
+		name: req.body[0].name,
+		isComputer: req.body[0].isComputer
 	};
 
 	var player2 = {
-		name: req.body.name1,
-		isComputer: req.body.isComputer1
+		name: req.body[1].name1,
+		isComputer: req.body[1].isComputer1
 	}
 
 	Game.create(game, function(err, newGame) {
@@ -48,23 +48,23 @@ function initGame(req, res) {
 			})
 		})
 	})
-
-	Game.create(game, function(err, result) {
-		console.log(name);
-		if (err) console.log(err);
-
-		// adds the human player
-
-		//adds the computer player
-		addPlayer(function(game) {
-			addPlayer(function(game) {
-				(function(){
-					return res.status(200).json(game);
-				})();
-			}, name, isComputer);
-		}, name1, isComputer1);
-
-	})
+	//
+	// Game.create(game, function(err, result) {
+	// 	console.log(name);
+	// 	if (err) console.log(err);
+	//
+	// 	// adds the human player
+	//
+	// 	//adds the computer player
+	// 	addPlayer(function(game) {
+	// 		addPlayer(function(game) {
+	// 			(function(){
+	// 				return res.status(200).json(game);
+	// 			})();
+	// 		}, player1.name, player1.isComputer);
+	// 	}, player2.name1, player2.isComputer1);
+	//
+	// })
 
 }
 
@@ -94,50 +94,142 @@ function addPlayer(callback, name, isComputer) {
 
 function returnWinner(req, res) {
 
+	Game.findOne({}, function(err, game) {
+		var userId = game.players[0];
+		var computerId = game.players[1];
+		var flop = game.flop;
+		Player.findById(userId, function(err, user) {
+			var userHand = user.hand;
+			Player.findById(computerId, function(err, computer) {
+				var computerHand = computer.hand;
+					var win = winner(userHand, computerHand, flop);
+					return res.status(200).json({Winner : win});
+				});
+			});
+		});
 }
 
 function computerDecision(req, res) {
 
+
 }
 
-function winner(hand1, hand2, flop) {
-	var hand1Score = evaluateHand(hand1, flop);
-	var hand2Score = evaluateHand(hand2, flop);
 
+function winner() {
+
+    hand1 = [{
+        _id: "57e90144e23cc0a63026a7e0",
+        Suit: "Diamonds",
+        Number: 6
+    }, {
+        _id: "57e90144e23cc0a63026a7e0",
+        Suit: "Diamonds",
+        Number: 6
+    }];
+
+    hand2 = [{
+        _id: "57e90144e23cc0a63026a7e0",
+        Suit: "Diamonds",
+        Number: 9
+    }, {
+        _id: "57e90144e23cc0a63026a7e0",
+        Suit: "Diamonds",
+        Number: 10
+    }];
+
+
+
+    flop = [{
+        _id: "57e90144e23cc0a63026a7e0",
+        Suit: "Diamonds",
+        Number: 4
+    }, {
+        _id: "57e90144e23cc0a63026a7e0",
+        Suit: "Diamonds",
+        Number: 11
+    }];
+
+
+    var hand1Score = evaluateHand(hand1, flop);
+    var hand2Score = evaluateHand(hand2, flop);
+
+
+    if (hand1Score > hand2Score) {
+        return "User";
+    } else if (hand1Score < hand2Score) {
+        return "Computer";
+    } else return "Draw";
 
 }
 
 
 function evaluateHand(hand, flop) {
+    var handScore = 0;
 
 
+    var allCards = hand.concat(flop);
+
+
+    handScore += highCard(allCards);
+    handScore += findPair(allCards);
+
+    return handScore;
 }
 
-// function highCard(hand) {
-// 	var i = this.length;
-//     while (i<this.length; i++) {
-//     	switch(hand[i].number) {
-// 		    case 11:
-// 		        console.log(hand[i].number);
-// 		        break;
-// 		    case 12:
-// 		        console.log(hand[i].number);
-// 		        break;
-// 		    case 13:
-// 		        console.log(hand[i].number);
-// 		        break;
-// 		    case 14:
-// 		        console.log(hand[i].number);
-// 		        break;
-//
-// 		    default:
-// 		    	console.log("Not a high card");
-// 		}
-//
-//     }
-//
-// }
+function highCard(allCards) {
+    // var highCardScore = 0;
+    var i = 0;
+    while (i < allCards.length) {
+        switch (allCards[i].Number) {
+            case 14:
+                return 14;
+            case 13:
+                return 13;
+            case 12:
+                return 12;
+            case 11:
+                return 11;
+            default:
+                // console.log("Not a high card");
+                return 0;
+        }
+        i++;
 
+    }
+    return 0;
+}
+
+function findPair(allCards) {
+    var pair = 0;
+
+    // for (var i = 0; i < allCards.length - 1; i++) {
+    //     for (var j = i; j < allCards.length - 1; j++) {
+    //         func([this[i], this[j+1]]);
+    //     }
+    // }
+
+    var allCardsArray = [];
+    for (var i = 0; i < allCards.length; i++) {
+        allCardsArray.push(allCards[i].Number);
+    }
+
+    allCardsArray.sort(sortNumber);
+
+    // console.log(allCardsArray);
+
+	var results = [];
+	for (var i = 0; i < allCardsArray.length - 1; i++) {
+	    if (allCardsArray[i + 1] == allCardsArray[i]) {
+	        results.push(allCardsArray[i]);
+    	}
+	}
+
+	console.log(results);
+}
+
+function sortNumber(a,b) {
+    return a - b;
+}
 
 
 module.exports = {

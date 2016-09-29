@@ -52,7 +52,7 @@ function dealCards(req, res) {
         Game.findOne({}, function(err, game) {
             userId = game.players[0];
             computerId = game.players[1];
-
+            game.flop.addToSet(flop);
             Player.findById(userId, function(err, user) {
                 user.hand.addToSet(usersCards[0], usersCards[1]);
                 return user.save(function(err, savedUser) {
