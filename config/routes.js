@@ -18,8 +18,8 @@ router.route('/game')
 router.route('/end')
 	.get(cardsController.end);
 
-// router.route('/evalHand')
-// 	.get(gamesController.evaluateHand);
+router.route('/evalHand')
+	.get(gamesController.evaluateHand);
 
 module.exports = router;
 
