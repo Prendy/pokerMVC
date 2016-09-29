@@ -8,107 +8,120 @@ var gameId = "";
 var userId = "";
 var computerId = "";
 
-function cardsIndex(req, res){
-	Card.find({}, function(err, cards){
-		if (err) console.log(err);
-		res.status(200).json(cards);
-	});
+function cardsIndex(req, res) {
+    Card.find({}, function(err, cards) {
+        if (err) console.log(err);
+        res.status(200).json(cards);
+    });
 
 };
 
 function dealCards(req, res) {
-	Card.find({}, function(err, cards){
+    Card.find({}, function(err, cards) {
 
-		
 
-		deck = shuffleArray(cards);
 
-		// empty user and computer arrays - this will hold their cards
-		var usersCards = [];
-		var computersCards = [];
-		var flop = [];
+        deck = shuffleArray(cards);
 
-		// deal the human (user) and computer 2 cards
-		dealCard(usersCards);
-		dealCard(computersCards);
-		dealCard(usersCards);
-		dealCard(computersCards);
+        // empty user and computer arrays - this will hold their cards
+        var usersCards = [];
+        var computersCards = [];
+        var flop = [];
 
-		// deals the first three cards to the flop
-		dealCard(flop);
-		dealCard(flop);
-		dealCard(flop);
+        // deal the human (user) and computer 2 cards
+        dealCard(usersCards);
+        dealCard(computersCards);
+        dealCard(usersCards);
+        dealCard(computersCards);
 
-		// deals the fourth card in the flop
-		dealCard(flop);
+        // deals the first three cards to the flop
+        dealCard(flop);
+        dealCard(flop);
+        dealCard(flop);
 
-		// deals the fifth card in the flop
-		dealCard(flop);
+        // deals the fourth card in the flop
+        dealCard(flop);
 
-		// computersCards = [
-		// 	{ Suit: 'Hearts', Number: 12 },
-  // 			{ Suit: 'Banter', Number: 11 }
-  // 			];
-		Game.findOne({}, function(err, game){
-			gameId = game._id;
-			userId = game.players[0]._id;
-			computerId = game.players[1]._id;
+        // deals the fifth card in the flop
+        dealCard(flop);
 
-			Player.findByIdAndUpdate(userId, {$push: { hand: {$each : usersCards}}}, null, function(err, user) {
-				Player.findByIdAndUpdate(computerId, {$push: { hand: {$each : computersCards}}}, null, function(err, computer) {
-					game.update({ $addTo : { players: { $each: [user, computer] }}}, {new: true}, function(err, response) {
-						return res.status(200).json({"users" : usersCards, "computer": computersCards, "flop" : flop});
-					})
-				})
-			})
-		});
+        // computersCards = [
+        // 	{ Suit: 'Hearts', Number: 12 },
+        // 			{ Suit: 'Banter', Number: 11 }
+        // 			];
+        Game.findOne({}, function(err, game) {
+            userId = game.players[0];
+            computerId = game.players[1];
 
-// {$push: {
-// 						//players: {$each: [user, computer]}
-// 					}}
-		// an object of the two players to return as JSON on screen
-		var players = { 
-			"users" : usersCards,
-			"computer" : computersCards,
-			"flop" : flop,
-			"remainingDeck" : deck
-		}
+            Player.findById(userId, function(err, user) {
+                user.hand.addToSet(usersCards[0], usersCards[1]);
+                return user.save(function(err, savedUser) {
+                    Player.findById(computerId, function(err, computer) {
+                        computer.hand.addToSet(computersCards[0], computersCards[1]);
+                        return computer.save(function(err, savedComputer) {
+                            game.players.addToSet(userId, computerId);
+                            return game.save(function(err, savedGame) {
+                                return res.status(200).json({
+                                    "user": savedUser,
+                                    "computer": savedComputer,
+                                    "flop": flop,
+                                    "savedGame": savedGame
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
 
-		//console.log(deck.length);
-		
-	});
+        // {$push: {
+        // 						//players: {$each: [user, computer]}
+        // 					}}
+        // an object of the two players to return as JSON on screen
+        var players = {
+            "users": usersCards,
+            "computer": computersCards,
+            "flop": flop,
+            "remainingDeck": deck
+        }
+
+        //console.log(deck.length);
+
+    });
 }
 
 function dealCard(thePlayer) {
 
-	var card = deck[0];
+    var card = deck[0];
 
-	thePlayer.push(card);
+    thePlayer.push(card);
 
-    deck = deck.slice(1); 
-	//console.log("The card dealt was " + card);
-	return card;
+    deck = deck.slice(1);
+    //console.log("The card dealt was " + card);
+    return card;
 }
 
-function endGame(req, res){
+function endGame(req, res) {
 
-	// findByIdAndRemove({ _id: })
+    // findByIdAndRemove({ _id: })
 
 
-	Game.remove({}, function(err) {
-		if (err) console.log(err);
-		Player.remove({}, function(err) {
-			if (err) console.log(err);
-			console.log("all gone");
-			res.status(200).json({message: "Game Over"})
-		})
-	})
-	
-	// Player.find({}, function(err, players){
-	// 	players.forEach(function() {
+    Game.remove({}, function(err) {
+        if (err) console.log(err);
+        Player.remove({}, function(err) {
+            if (err) console.log(err);
+            console.log("all gone");
+            res.status(200).json({
+                message: "Game Over"
+            })
+        })
+    })
 
-	// 	}
-	// });
+    // Player.find({}, function(err, players){
+    // 	players.forEach(function() {
+
+    // 	}
+    // });
 
 
 }
@@ -117,9 +130,9 @@ function endGame(req, res){
 
 
 module.exports = {
-	index : cardsIndex,
-	// shuffle : cardsShuffle,
-	deal : dealCards,
-	end: endGame
+    index: cardsIndex,
+    // shuffle : cardsShuffle,
+    deal: dealCards,
+    end: endGame
 
 };

@@ -2,14 +2,14 @@ var Game = require('../models/game');
 // var Player = require('./players');
 var Player = require('../models/player');
 
-function initGame(req, res) {	
+function initGame(req, res) {
 	var game = {
 		players: [],
 		flop: [],
 		round: 1,
 		pot: 0
 	};
-	
+
 	// var isComputer = req.body.isComputer;
 	// var name = req.body.player;
 
@@ -19,7 +19,7 @@ function initGame(req, res) {
 	// var player = req.body.player2;
 	// var player = req.body.player3;
 	// var player = req.body.player4;
-	console.log(req.body.name1);
+	// console.log(req.body.name1);
 
 	//DELETED [0]
 
@@ -48,7 +48,7 @@ function initGame(req, res) {
 			})
 		})
 	})
-	
+
 	// Game.create(game, function(err, result) {
 	// 	console.log(name);
 	// 	if (err) console.log(err);
