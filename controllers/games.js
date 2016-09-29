@@ -113,6 +113,6 @@ function addPlayer(callback, name, isComputer) {
 
 module.exports = {
 	index : initGame,
-	returnWinner : returnWinner,
-	computerDecision : computerDecision
+	// returnWinner : returnWinner,
+	// computerDecision : computerDecision
 };
