@@ -92,22 +92,22 @@ function addPlayer(callback, name, isComputer) {
 	});
 }
 
-function returnWinner(req, res) {
+// function returnWinner(req, res) {
+//
+// }
+//
+// function conputerDecision(req, res) {
+//
+// }
+//
+// function winner() {
+// 	var hand1Score = evaluateHand();
+// }
+//
+//
+// function evaluateHand(hand, flop) {
 
-}
-
-function conputerDecision(req, res) {
-
-}
-
-function winner() {
-	var hand1Score = evaluateHand();
-}
-
-
-function evaluateHand(hand, flop) {
-
-}
+// }
 
 
 
