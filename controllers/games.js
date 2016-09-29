@@ -117,39 +117,6 @@ function computerDecision(req, res) {
 
 function winner() {
 
-    hand1 = [{
-        _id: "57e90144e23cc0a63026a7e0",
-        Suit: "Diamonds",
-        Number: 6
-    }, {
-        _id: "57e90144e23cc0a63026a7e0",
-        Suit: "Diamonds",
-        Number: 6
-    }];
-
-    hand2 = [{
-        _id: "57e90144e23cc0a63026a7e0",
-        Suit: "Diamonds",
-        Number: 9
-    }, {
-        _id: "57e90144e23cc0a63026a7e0",
-        Suit: "Diamonds",
-        Number: 10
-    }];
-
-
-
-    flop = [{
-        _id: "57e90144e23cc0a63026a7e0",
-        Suit: "Diamonds",
-        Number: 4
-    }, {
-        _id: "57e90144e23cc0a63026a7e0",
-        Suit: "Diamonds",
-        Number: 11
-    }];
-
-
     var hand1Score = evaluateHand(hand1, flop);
     var hand2Score = evaluateHand(hand2, flop);
 
