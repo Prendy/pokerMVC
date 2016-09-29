@@ -115,7 +115,7 @@ function computerDecision(req, res) {
 }
 
 
-function winner() {
+function winner(hand1, hand2, flop) {
 
     var hand1Score = evaluateHand(hand1, flop);
     var hand2Score = evaluateHand(hand2, flop);
