@@ -114,21 +114,21 @@ function computerDecision(req, res) {
 
 function winner(hand1, hand2, flop) {
 
-	var hand1 = [
-		{Suit: "Hearts", Number: 6},
-		{Suit: "Hearts", Number: 6}
-		];
-	var hand2 = [
-		{Suit: "Hearts", Number: 2},
-		{Suit: "Hearts", Number: 3}
-		];
-	var flop = [
-		{Suit: "Hearts", Number: 3},
-		{Suit: "Hearts", Number: 5},
-		{Suit: "Hearts", Number: 6},
-		{Suit: "Hearts", Number: 13},
-		{Suit: "Diamons", Number: 13}
-		];
+	// var hand1 = [
+	// 	{Suit: "Hearts", Number: 6},
+	// 	{Suit: "Hearts", Number: 6}
+	// 	];
+	// var hand2 = [
+	// 	{Suit: "Hearts", Number: 2},
+	// 	{Suit: "Hearts", Number: 3}
+	// 	];
+	// var flop = [
+	// 	{Suit: "Hearts", Number: 3},
+	// 	{Suit: "Hearts", Number: 5},
+	// 	{Suit: "Hearts", Number: 6},
+	// 	{Suit: "Hearts", Number: 13},
+	// 	{Suit: "Diamons", Number: 13}
+	// 	];
 
 
 
@@ -155,11 +155,11 @@ function evaluateHand(hand, flop) {
 
 
     handScore += highCard(allCards);
-	console.log("hs1 " + handScore);
+	console.log("hs1 " + parseInt(handScore));
     handScore += findPair(allCards)*100;
-	console.log("hs2 " + handScore);
+	console.log("hs2 " + parseInt(handScore));
 	handScore += findThree(allCards)*1000;
-	console.log("hs3 " + handScore);
+	console.log("hs3 " + parseInt(handScore));
 
 	if (handScore < 15){
 		reason = "Won with a high card";
@@ -172,12 +172,13 @@ function evaluateHand(hand, flop) {
 
 	}
 	else{
-		reason = "Draw"
+	
+		reason = "Draw"+handScore;
 	}
 
 
 	handObj = {
-		hand: handScore,
+		hand: parseInt(handScore),
 		reason: reason
 	};
 
