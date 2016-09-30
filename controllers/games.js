@@ -10,19 +10,6 @@ function initGame(req, res) {
 		pot: 0
 	};
 
-	// var isComputer = req.body.isComputer;
-	// var name = req.body.player;
-
-	// var isComputer1 = req.body.isComputer1;
-	// var name1 = req.body.player1;
-
-	// var player = req.body.player2;
-	// var player = req.body.player3;
-	// var player = req.body.player4;
-	// console.log(req.body.name1);
-
-	//DELETED [0]
-
 	var player1 = {
 		name: req.body.name,
 		isComputer: req.body.isComputer
@@ -32,6 +19,16 @@ function initGame(req, res) {
 		name: req.body.name1,
 		isComputer: req.body.isComputer1
 	}
+
+	// var player1 = {
+	// 	name: req.body[0].name,
+	// 	isComputer: req.body[1].isComputer
+	// };
+	//
+	// var player2 = {
+	// 	name: req.body[0].name1,
+	// 	isComputer: req.body[1].isComputer1
+	// }
 
 	Game.create(game, function(err, newGame) {
 		if (err) console.log(err);
@@ -117,6 +114,24 @@ function computerDecision(req, res) {
 
 function winner(hand1, hand2, flop) {
 
+	var hand1 = [
+	    {Suit: "Hearts", Number: 6},
+	    {Suit: "Hearts", Number: 8}
+	    ];
+	var hand2 = [
+	    {Suit: "Hearts", Number: 3},
+	    {Suit: "Hearts", Number: 3}
+	    ];
+	var flop = [
+	    {Suit: "Hearts", Number: 3},
+	    {Suit: "Hearts", Number: 5},
+	    {Suit: "Hearts", Number: 6},
+	    {Suit: "Hearts", Number: 13},
+	    {Suit: "Diamons", Number: 13}
+	    ];
+
+
+
     var hand1Score = evaluateHand(hand1, flop);
     var hand2Score = evaluateHand(hand2, flop);
 
@@ -138,8 +153,10 @@ function evaluateHand(hand, flop) {
 
 
     handScore += highCard(allCards);
-    handScore += findPair(allCards);
+    handScore += findPair(allCards)*100;
+	handScore += findThree(allCards)*1000;
 
+	console.log("Score is : " + handScore);
     return handScore;
 }
 
@@ -188,10 +205,34 @@ function findPair(allCards) {
 	for (var i = 0; i < allCardsArray.length - 1; i++) {
 	    if (allCardsArray[i + 1] == allCardsArray[i]) {
 	        results.push(allCardsArray[i]);
+			console.log("We have a pair");
     	}
 	}
 
-	console.log(results);
+	//console.log(results);
+}
+
+function findThree(allCards) {
+
+	console.log("Im here");
+
+	var allCardsArray = [];
+	for (var i = 0; i < allCards.length; i++) {
+		allCardsArray.push(allCards[i].Number);
+	}
+
+	allCardsArray.sort(sortNumber);
+
+	// console.log(allCardsArray);
+
+	var threeResults = [];
+	for (var i = 0; i < allCardsArray.length - 1; i++) {
+	    if (allCardsArray[i + 1] == allCardsArray[i] && allCardsArray[i + 2] == allCardsArray[i]) {
+	        threeResults.push(allCardsArray[i]);
+    	}
+	}
+    console.log(threeResults);
+
 }
 
 function sortNumber(a,b) {
