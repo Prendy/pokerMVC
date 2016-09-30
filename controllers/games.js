@@ -115,20 +115,21 @@ function computerDecision(req, res) {
 function winner(hand1, hand2, flop) {
 
 	var hand1 = [
-	    {Suit: "Hearts", Number: 6},
-	    {Suit: "Hearts", Number: 8}
-	    ];
+		{Suit: "Hearts", Number: 6},
+		{Suit: "Hearts", Number: 6}
+		];
 	var hand2 = [
-	    {Suit: "Hearts", Number: 3},
-	    {Suit: "Hearts", Number: 3}
-	    ];
+		{Suit: "Hearts", Number: 2},
+		{Suit: "Hearts", Number: 3}
+		];
 	var flop = [
-	    {Suit: "Hearts", Number: 3},
-	    {Suit: "Hearts", Number: 5},
-	    {Suit: "Hearts", Number: 6},
-	    {Suit: "Hearts", Number: 13},
-	    {Suit: "Diamons", Number: 13}
-	    ];
+		{Suit: "Hearts", Number: 3},
+		{Suit: "Hearts", Number: 5},
+		{Suit: "Hearts", Number: 6},
+		{Suit: "Hearts", Number: 13},
+		{Suit: "Diamons", Number: 13}
+		];
+
 
 
 
@@ -136,10 +137,11 @@ function winner(hand1, hand2, flop) {
     var hand2Score = evaluateHand(hand2, flop);
 
 
-    if (hand1Score > hand2Score) {
-        return "User";
-    } else if (hand1Score < hand2Score) {
-        return "Computer";
+
+    if (hand1Score.hand > hand2Score.hand) {
+        return "User" + hand1Score.reason;
+    } else if (hand1Score.hand < hand2Score.hand) {
+        return "Computer" + hand2Score.reason;
     } else return "Draw";
 
 }
@@ -147,17 +149,40 @@ function winner(hand1, hand2, flop) {
 
 function evaluateHand(hand, flop) {
     var handScore = 0;
-
+	var reason = "";
 
     var allCards = hand.concat(flop);
 
 
     handScore += highCard(allCards);
+	console.log("hs1 " + handScore);
     handScore += findPair(allCards)*100;
+	console.log("hs2 " + handScore);
 	handScore += findThree(allCards)*1000;
+	console.log("hs3 " + handScore);
 
-	console.log("Score is : " + handScore);
-    return handScore;
+	if (handScore < 15){
+		reason = "Won with a high card";
+	}
+	else if (handScore > 100 && handScore < 1000){
+		 reason = "Won with a pair";
+	}
+	else if (handScore > 1000) {
+		reason = "won with 3 of a kind";
+
+	}
+	else{
+		reason = "Draw"
+	}
+
+
+	handObj = {
+		hand: handScore,
+		reason: reason
+	};
+
+	console.log("Score is : " + handObj.hand);
+    return handObj;
 }
 
 function highCard(allCards) {
@@ -208,7 +233,7 @@ function findPair(allCards) {
 			console.log("We have a pair");
     	}
 	}
-
+	return results[0];
 	//console.log(results);
 }
 
@@ -231,8 +256,8 @@ function findThree(allCards) {
 	        threeResults.push(allCardsArray[i]);
     	}
 	}
-    console.log(threeResults);
-
+    //console.log(threeResults);
+		return threeResults[0];
 }
 
 function sortNumber(a,b) {

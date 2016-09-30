@@ -18,7 +18,7 @@ router.route('/game')
 router.route('/end')
 	.get(cardsController.end);
 
-router.route('/getWinner')
+router.route('/winner')
 	.get(gamesController.returnWinner);
 
 router.route('/computerDecision')
