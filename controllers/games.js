@@ -100,7 +100,7 @@ function returnWinner(req, res) {
 			Player.findById(computerId, function(err, computer) {
 				var computerHand = computer.hand;
 					var win = winner(userHand, computerHand, flop);
-					return res.status(200).json({Winner : win});
+					return res.status(200).json(win);
 				});
 			});
 		});
