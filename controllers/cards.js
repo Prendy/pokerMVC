@@ -61,12 +61,13 @@ function dealCards(req, res) {
                         return computer.save(function(err, savedComputer) {
                             game.players.addToSet(userId, computerId);
                             return game.save(function(err, savedGame) {
-                                return res.status(200).json([{
-                                    "user": savedUser,
-                                    "computer": savedComputer,
-                                    "flop": flop,
-                                    "savedGame": savedGame
-                                }]);
+                                var data = {
+                                  "user": savedUser,
+                                  "computer": savedComputer,
+                                  "flop": flop,
+                                  "savedGame": savedGame
+                                }
+                                return res.status(200).json(data);
                             });
                         });
                     });
