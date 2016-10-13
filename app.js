@@ -40,4 +40,6 @@ app.use('/api', router);
 
 app.listen(port, function(){
 	console.log("Express app is listening on port: " + port);
+	console.log('Ready: DB_URL ='+ db_url);
+	console.log('Ready: DB_OPTIONS =' + JSON.stringify(options));
 });
