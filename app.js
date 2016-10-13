@@ -25,7 +25,7 @@ var options = {
 console.log('DB_URL ='+ db_url);
 console.log('DB_OPTIONS =' + JSON.stringify(options));
 
-mongoose.connect(db_url, options), function(){
+mongoose.connect(db_url), function(){
 	console.log("Database connected");
 }
 app.use(bodyParser.urlencoded({ extended: false }));
