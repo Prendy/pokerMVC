@@ -10,13 +10,19 @@ var path = require('path');
 
 var port = process.env.PORT || 3000;
 
+var db_url = process.env.MONGO_URL || 'ds041586.mlab.com:41586/skybetpoker';
+
+var db_user = process.env.MONGO_USER || 'fbaig';
+
+var db_password = process.env.MONGO_PASSWORD || 'password1';
+
 var options = {
-	user: 'fbaig',
-	pass: 'password1'
+	user: db_user,
+	pass: db_password
 
 }
 
-mongoose.connect('ds041586.mlab.com:41586/skybetpoker', options), function(){
+mongoose.connect(db_url, options), function(){
 	console.log("Database connected");
 }
 app.use(bodyParser.urlencoded({ extended: false }));
